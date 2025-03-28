@@ -1,5 +1,5 @@
 const display = document.getElementById('display');
-const selectedNamesArea = document.getElementById('selected-names');
+const selectedNamesArea = document.getElementById('names_warp');
 const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const speedInput = document.getElementById('speed');
@@ -29,16 +29,32 @@ function getRandomName() {
 
 // 开始或暂停滚动
 function toggleRoll() {
+    
     startButton.disabled  = false;
     if (isRunning) {
         clearInterval(intervalId);
         isRunning = false;
         startButton.textContent = '开始抽问';
         const currentName = display.textContent;
+        
         if (!selectedNames.includes(currentName)) {
             selectedNames.push(currentName);
-            selectedNamesArea.textContent = `抽中姓名：${selectedNames.join(', ')}`;
+            let span = document.createElement('div');
+            span.textContent = currentName;
+            span.style.padding = '4px';
+            // span.id = "selectName";
+            selectedNamesArea.appendChild(span);
+            // 获取selectedNamesArea下的所有div元素，并为最后一个设置id为'selectName'
+            const childDivs = selectedNamesArea.getElementsByTagName('div');
+            for (let i = 0; i < childDivs.length; i++) {
+                childDivs[i].id = '';
+            }
+            childDivs[childDivs.length - 1].id = 'selectName';
+            fancyAnimation()
+            // selectedNamesArea.textContent = `抽中姓名：${selectedNames.join(', ')}`;
             
+        }else{
+            alert("该姓名已被抽取，请重新选择！");
         }
         if (selectedNames.length >= countInput.value) {
             // alert(`抽取完成！\n${selectedNames.join(', ')}`);
@@ -66,7 +82,7 @@ function reset() {
     startButton.textContent = '开始抽问';
     display.textContent = '点击开始';
     selectedNames = [];
-    selectedNamesArea.textContent = '抽中姓名：';
+    selectedNamesArea.textContent = '';
     startButton.disabled  = false;
     startButton.style.backgroundColor  = '#ff6f61';
 }
@@ -74,3 +90,26 @@ function reset() {
 // 事件监听
 startButton.addEventListener('click', toggleRoll);
 resetButton.addEventListener('click', reset);
+function fancyAnimation() {
+    gsap.from("#selectName", {
+      duration: 0.5,
+      scale: 0,
+      ease: "elastic.out(1, 0.5)",
+      rotation: 360
+    });
+
+    // 创建粒子效果
+    for(let i=0; i<20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      document.body.appendChild(particle);
+      
+      gsap.to(particle, {
+        x: Math.random() * 240 - 100,
+        y: Math.random() * 240 - 100,
+        opacity: 0,
+        duration: 1.5,
+        onComplete: () => particle.remove()
+      });
+    }
+  }
