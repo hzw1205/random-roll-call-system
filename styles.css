@@ -35,8 +35,17 @@ h1 {
     margin-bottom: 20px;
     min-height: 30px;
     font-weight: 600;
-}
+    /* display: flex;
+    justify-content: center; */
 
+}
+#names_warp{
+    /* flex: 1;
+    min-width: 0; */
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap ;
+}
 /* 滚动姓名显示区域 */
 #display {
     font-size: 3.5em;
@@ -51,6 +60,12 @@ h1 {
 }
 
 /* 按钮样式 */
+#btn_warp{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #start {
     background-color: #ff6f61;
     color: white;
@@ -61,7 +76,7 @@ h1 {
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
 #reset {
     background-color: #ff6f61;
@@ -73,8 +88,8 @@ h1 {
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
-    margin-top: 30px;
-    margin-right: 10px;
+    /* margin-top: 30px; */
+    /* margin-right: 10px; */
 }
 
 #start:hover {
@@ -99,3 +114,10 @@ h1 {
     border: 1px solid #ff6f61;
     width: 60px;
 }
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: gold;
+    border-radius: 50%;
+  }
